@@ -1,30 +1,32 @@
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
-const StartUpProjectPage: React.FC = () => {
-    const router = useRouter();
-    const repoLink = "https://github.com/aiteamsai/startup-2006d5c0-9ade-4123-b360-5c3567d9c2d8";
-    const vercelLink = "https://startup-2006d5c0-9ade-4123-b360-5c3567d9c2d8.vercel.app";
+const ProjectPage = () => {
+  const router = useRouter()
+  const [data, setData] = useState(null)
 
-    const [loading, setLoading] = useState<boolean>(false);
+  useEffect(() => {
+    // Replace with your GitHub API endpoint
+    fetch('https://api.github.com/repos/aiteamsai/startup-2006d5c0-9ade-4123-b360-5c3567d9c2d8')
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, [])
 
-    useEffect(() => {
-        // Utils to load data or set up here...
-        setLoading(true);
-        // simulate data loading
-        setTimeout(() => {
-            setLoading(false);
-        }, 3000);
-    }, []);
+  if (!data) {
+    return <div>Loading...</div>
+  }
 
-    return (
-        loading ? <div>Loading...</div> :
-            <div>
-                <h1>StartUp Project</h1>
-                <p>This is a new innovative project that integrates technology and software development, mainly focusing on repositories on Github and deployments on Vercel.</p>
-                <p>The Github repository can be found at: <a href={repoLink} target="_blank" rel="noreferrer">Github Repo</a></p>
-                <p>The live Vercel project can be found at: <a href={vercelLink} target="_blank" rel="noreferrer">Vercel Project</a></p>
-            </div>
-    )
+  return (
+    <div>
+      <h1>{data.name}</h1>
+      <p>{data.description}</p>
+      <a href={data.html_url} target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+      <a href="https://startup-2006d5c0-9ade-4123-b360-5c3567d9c2d8.vercel.app" target="_blank" rel="noopener noreferrer">Vercel Project</a>
+    </div>
+  )
 }
-export default StartUpProjectPage;
+
+export default ProjectPage
