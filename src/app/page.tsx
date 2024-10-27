@@ -1,18 +1,29 @@
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import React from "react";
+import { useRouter } from "next/router";
 
-const Home = (): JSX.Element => {
+const ProjectPage: React.FC = () => {
   const router = useRouter();
+  const { id } = router.query;
 
-  useEffect(() => {
-    router.push('https://startup-2006d5c0-9ade-4123-b360-5c3567d9c2d8.vercel.app');
-  }, [])
+  const navigateToGitHub = () => {
+     if (id) {
+       window.open(`https://github.com/aiteamsai/startup-${id}`, "_blank");
+     }
+  };
+
+  const navigateToVercel = () => {
+     if (id) {
+       window.open(`https://startup-${id}.vercel.app`, "_blank");
+     }
+  };
 
   return (
     <div>
-      <p>Redirecting...</p>
+      <h1>Welcome to the Project Page</h1>
+      <button onClick={navigateToGitHub}>Open project on GitHub</button>
+      <button onClick={navigateToVercel}>Open project on Vercel</button>
     </div>
-  )
-}
+  );
+};
 
-export default Home;
+export default ProjectPage;
