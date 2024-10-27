@@ -1,23 +1,30 @@
-// pages/index.tsx
-import {NextPage} from 'next'
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 
-const Home: NextPage = () => {
-  return (
-    <div>
-      <h2>Project Name</h2>
-      <p>This project lies at the intersection of technology and software development, mainly focusing on creating a repository on 
-      GitHub and initializing a deployment project on Vercel. </p>
-      <p>The core idea is based on bringing efficiency, speed, and convenience into the software development process. 
-      The key features include creating a Linked Repository for managing and storing project versions and setting up a Live Vercel 
-      project for instant deployment of developments.</p>
-      <p>Find out more on our:
-        <ul>
-           <li><a href="https://github.com/aiteamsai/startup-2006d5c0-9ade-4123-b360-5c3567d9c2d8">GitHub repository</a></li>
-           <li><a href="https://startup-2006d5c0-9ade-4123-b360-5c3567d9c2d8.vercel.app">Vercel project</a></li>
-        </ul>
-      </p>
-    </div>
-  )
+const StartUpProjectPage: React.FC = () => {
+    const router = useRouter();
+    const repoLink = "https://github.com/aiteamsai/startup-2006d5c0-9ade-4123-b360-5c3567d9c2d8";
+    const vercelLink = "https://startup-2006d5c0-9ade-4123-b360-5c3567d9c2d8.vercel.app";
+
+    const [loading, setLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        // Utils to load data or set up here...
+        setLoading(true);
+        // simulate data loading
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+    }, []);
+
+    return (
+        loading ? <div>Loading...</div> :
+            <div>
+                <h1>StartUp Project</h1>
+                <p>This is a new innovative project that integrates technology and software development, mainly focusing on repositories on Github and deployments on Vercel.</p>
+                <p>The Github repository can be found at: <a href={repoLink} target="_blank" rel="noreferrer">Github Repo</a></p>
+                <p>The live Vercel project can be found at: <a href={vercelLink} target="_blank" rel="noreferrer">Vercel Project</a></p>
+            </div>
+    )
 }
-
-export default Home
+export default StartUpProjectPage;
